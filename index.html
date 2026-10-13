@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hemanth R Desai | Support Operations Professional</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800;900&family=Space+Grotesk:wght@600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #090a10;
+      --card-bg: rgba(18, 21, 32, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #38bdf8;
+      --purple: #a855f7;
+      --text-white: #ffffff;
+      --text-muted: #94a3b8;
+      --sidebar-width: 70px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-white);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    .spotlight {
+      position: fixed;
+      top: -15%;
+      left: 30%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.16) 0%, rgba(168, 85, 247, 0.1) 45%, transparent 70%);
+      filter: blur(80px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Left Floating Rail */
+    .side-rail {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      border-right: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 0;
+      z-index: 100;
+      background: rgba(9, 10, 16, 0.7);
+      backdrop-filter: blur(12px);
+    }
+
+    .rail-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+    }
+
+    .rail-socials {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .rail-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .rail-link:hover {
+      color: var(--text-white);
+      transform: scale(1.2);
+    }
+
+    .rail-indicator {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+    }
+
+    /* Main Viewport Content */
+    .viewport-content {
+      margin-left: var(--sidebar-width);
+      padding: 0 3.5rem;
+      max-width: 1400px;
+    }
+
+    @media (max-width: 768px) {
+      .side-rail { display: none; }
+      .viewport-content { margin-left: 0; padding: 0 1.25rem; }
+    }
+
+    nav {
+      height: 90px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    /* HERO SECTION */
+    .hero-section {
+      min-height: calc(100vh - 90px);
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      align-items: center;
+      gap: 3.5rem;
+      padding-bottom: 3rem;
+    }
+
+    @media (max-width: 992px) {
+      .hero-section {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+
+    /* 3D Holographic Anime Card */
+    .avatar-3d-scene {
+      perspective: 1200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .avatar-card {
+      width: 100%;
+      max-width: 440px;
+      height: 540px;
+      position: relative;
+      border-radius: 28px;
+      background: radial-gradient(circle at center, #1b2033 0%, #0c0f18 100%);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 45px rgba(56, 189, 248, 0.25);
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .avatar-img-layer {
+      position: absolute;
+      inset: 0;
+      background-image: url('20260612_163931.jpg'), radial-gradient(circle at 50% 40%, rgba(56, 189, 248, 0.35) 0%, rgba(168, 85, 247, 0.2) 60%, #090a10 100%);
+      background-size: cover;
+      background-position: center top;
+      filter: saturate(1.2) contrast(1.1);
+      border-radius: 28px;
+      transition: transform 0.2s ease;
+    }
+
+    .anime-cel-filter {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.18) 0%, rgba(9, 10, 16, 0.75) 85%);
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
+    .hologram-grid {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.04) 0px,
+        rgba(255, 255, 255, 0.04) 2px,
+        transparent 2px,
+        transparent 4px
+      );
+      pointer-events: none;
+    }
+
+    .avatar-badge-3d {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      right: 1.5rem;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 1rem 1.25rem;
+      border-radius: 16px;
+      transform: translateZ(45px);
+    }
+
+    .avatar-badge-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .avatar-badge-sub {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-family: 'Fira Code', monospace;
+    }
+
+    /* Hero Typography */
+    .hero-name-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+      display: inline-block;
+    }
+
+    .hero-title-solid {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.3rem, 4.4vw, 4rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .hero-title-hollow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.3rem, 4.4vw, 4rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.85);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin-bottom: 2rem;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #fff;
+      color: #090a10;
+      font-weight: 700;
+      padding: 0.85rem 1.8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+    }
+    .cta-btn:hover {
+      background: var(--accent);
+      color: #04101e;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(56, 189, 248, 0.4);
+    }
+
+    /* Section Basics */
+    section { padding: 5rem 0; }
+
+    .section-tag {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .section-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Interactive Physics Tech Stack Canvas */
+    .physics-canvas-box {
+      width: 100%;
+      height: 500px;
+      background: radial-gradient(circle at center, rgba(30, 41, 59, 0.3) 0%, rgba(9, 10, 16, 0.95) 80%);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 1.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    #techCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+    #techCanvas:active { cursor: grabbing; }
+
+    .canvas-hint {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      pointer-events: none;
+      letter-spacing: 1px;
+    }
+
+    /* Career Experience */
+    .experience-container {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 2.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 2.5rem;
+      backdrop-filter: blur(12px);
+    }
+
+    @media (max-width: 860px) {
+      .experience-container { grid-template-columns: 1fr; }
+    }
+
+    .exp-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .exp-tab {
+      background: transparent;
+      border: 1px solid transparent;
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      color: var(--text-muted);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .exp-tab:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .exp-tab.active {
+      color: #fff;
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+    .exp-tab .tab-year {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    .exp-details-panel { padding: 0.5rem 1rem; }
+
+    .exp-role-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .exp-company-sub {
+      color: var(--accent);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+    }
+
+    .exp-points-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .exp-points-list li {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .exp-points-list li::before {
+      content: '▹';
+      color: var(--accent);
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 3rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 4rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <div class="spotlight"></div>
+
+  <!-- Left Sidebar Rail -->
+  <aside class="side-rail">
+    <div class="rail-logo">HRD</div>
+    <div class="rail-socials">
+      <a href="https://linkedin.com/in/hemanth-desai-879208134" target="_blank" class="rail-link" title="LinkedIn">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+      </a>
+      <a href="mailto:hemanthdesai1@gmail.com" class="rail-link" title="Email">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/></svg>
+      </a>
+    </div>
+    <div class="rail-indicator">
+      HEMANTH R DESAI // OPS
+    </div>
+  </aside>
+
+  <div class="viewport-content">
+    
+    <nav>
+      <div class="brand-title">HEMANTH R DESAI</div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#techstack">Tech Stack</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="about">
+      <div class="avatar-3d-scene">
+        <div class="avatar-card" id="avatarCard">
+          <div class="avatar-img-layer" id="avatarImg"></div>
+          <div class="anime-cel-filter"></div>
+          <div class="hologram-grid"></div>
+          <div class="avatar-badge-3d">
+            <div class="avatar-badge-title">Hemanth R Desai</div>
+            <div class="avatar-badge-sub">// Customer Care Analyst @ Sana / Workday</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="hero-name-badge">HEMANTH R DESAI</div>
+        <h1 class="hero-title-solid">SUPPORT OPERATIONS</h1>
+        <h2 class="hero-title-hollow">PROFESSIONAL</h2>
+        <p class="hero-desc">
+          Customer Care Analyst at <strong>Sana Labs / Workday</strong>. Specializing in 99.9% uptime management, release orchestrations, root cause analysis (RCA), and AI-driven automation.
+        </p>
+        <a href="#experience" class="cta-btn">
+          View Experience Playbook
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE PHYSICS TECH STACK -->
+    <section id="techstack">
+      <span class="section-tag">// TOOLCHAIN</span>
+      <h2 class="section-heading">Interactive Tech Stack</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">Interactive physics engine with real brand logos. Drag and toss the balls:</p>
+
+      <div class="physics-canvas-box">
+        <canvas id="techCanvas"></canvas>
+        <div class="canvas-hint">DRAG & TOSS ANY LOGO SPHERE</div>
+      </div>
+    </section>
+
+    <!-- CAREER EXPERIENCE -->
+    <section id="experience">
+      <span class="section-tag">// TRACK RECORD</span>
+      <h2 class="section-heading">Career Experience</h2>
+
+      <div class="experience-container">
+        <div class="exp-nav">
+          <button class="exp-tab active" onclick="switchExp(0)">
+            <span>Sana / Workday</span>
+            <span class="tab-year">NOW</span>
+          </button>
+          <button class="exp-tab" onclick="switchExp(1)">
+            <span>BetterPlace</span>
+            <span class="tab-year">2024</span>
+          </button>
+          <button class="exp-tab" onclick="switchExp(2)">
+            <span>Nextuple</span>
+            <span class="tab-year">2022-24</span>
+          </button>
+          <button class="exp-tab" onclick="switchExp(3)">
+            <span>TechGyan</span>
+            <span class="tab-year">2022</span>
+          </button>
+        </div>
+
+        <div class="exp-details-panel" id="expPanel">
+          <h3 class="exp-role-title">Customer Care Analyst</h3>
+          <span class="exp-company-sub">Sana Labs / Workday — Present</span>
+          <ul class="exp-points-list">
+            <li>Leading tier-2/tier-3 escalation response across AI learning ecosystems and Workday integration endpoints.</li>
+            <li>Collaborating with core engineering pods to triage API payloads and deliver telemetry logs for rapid resolution.</li>
+            <li>Authoring detailed runbooks and standard operating procedures for distributed support reps.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© 2026 Hemanth R Desai — Support Operations Professional</div>
+      <div>Contact: <a href="mailto:hemanthdesai1@gmail.com">hemanthdesai1@gmail.com</a></div>
+    </footer>
+
+  </div>
+
+  <script>
+    // 1. 3D Holographic Parallax Tilt Effect
+    const card = document.getElementById('avatarCard');
+    const imgLayer = document.getElementById('avatarImg');
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      
+      const rotX = -(y / (rect.height / 2)) * 14;
+      const rotY = (x / (rect.width / 2)) * 14;
+
+      card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
+      imgLayer.style.transform = `scale(1.08) translate(${-rotY * 0.8}px, ${rotX * 0.8}px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+      imgLayer.style.transform = `scale(1) translate(0px, 0px)`;
+    });
+
+    // 2. Physics Canvas with Official Brand Logos
+    const canvas = document.getElementById('techCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const tools = [
+      { name: 'Workday', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/workday.svg', bg: '#0875e1' },
+      { name: 'Grafana', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/grafana.svg', bg: '#F46800' },
+      { name: 'Zendesk', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/zendesk.svg', bg: '#03363D' },
+      { name: 'Jira', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/jira.svg', bg: '#0052CC' },
+      { name: 'PostgreSQL', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/postgresql.svg', bg: '#4169E1' },
+      { name: 'Python', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/python.svg', bg: '#3776AB' },
+      { name: 'Docker', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/docker.svg', bg: '#2496ED' },
+      { name: 'Postman', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/postman.svg', bg: '#FF6C37' },
+      { name: 'Anthropic', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/anthropic.svg', bg: '#D97757' },
+      { name: 'OpenAI', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/openai.svg', bg: '#10A37F' }
+    ];
+
+    let width, height;
+    function resizeCanvas() {
+      width = canvas.parentElement.clientWidth;
+      height = canvas.parentElement.clientHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Ball {
+      constructor(tool, x, y) {
+        this.name = tool.name;
+        this.bg = tool.bg;
+        this.radius = 42;
+        this.x = x;
+        this.y = y;
+        this.vx = (Math.random() - 0.5) * 4;
+        this.vy = (Math.random() - 0.5) * 4;
+        this.friction = 0.985;
+        this.gravity = 0.16;
+        
+        this.img = new Image();
+        this.img.crossOrigin = 'anonymous';
+        this.img.src = tool.logo;
+      }
+
+      update() {
+        this.vy += this.gravity;
+        this.vx *= this.friction;
+        this.vy *= this.friction;
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x - this.radius < 0) {
+          this.x = this.radius;
+          this.vx *= -0.7;
+        } else if (this.x + this.radius > width) {
+          this.x = width - this.radius;
+          this.vx *= -0.7;
+        }
+
+        if (this.y - this.radius < 0) {
+          this.y = this.radius;
+          this.vy *= -0.7;
+        } else if (this.y + this.radius > height) {
+          this.y = height - this.radius;
+          this.vy *= -0.7;
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        
+        const grad = ctx.createRadialGradient(
+          this.x - 8, this.y - 8, 4,
+          this.x, this.y, this.radius
+        );
+        grad.addColorStop(0, '#1e2438');
+        grad.addColorStop(1, '#0c0f18');
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        const iconSize = 28;
+        if (this.img.complete && this.img.naturalWidth !== 0) {
+          ctx.drawImage(this.img, this.x - iconSize / 2, this.y - iconSize / 2 - 4, iconSize, iconSize);
+        }
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = '600 10px "Space Grotesk", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(this.name, this.x, this.y + 22);
+
+        ctx.restore();
+      }
+    }
+
+    const balls = tools.map((tool, i) => {
+      const x = 70 + (i % 5) * 95;
+      const y = 60 + Math.floor(i / 5) * 90;
+      return new Ball(tool, x, y);
+    });
+
+    function handleCollisions() {
+      for (let i = 0; i < balls.length; i++) {
+        for (let j = i + 1; j < balls.length; j++) {
+          const dx = balls[j].x - balls[i].x;
+          const dy = balls[j].y - balls[i].y;
+          const dist = Math.hypot(dx, dy);
+          const minDist = balls[i].radius + balls[j].radius;
+
+          if (dist < minDist) {
+            const angle = Math.atan2(dy, dx);
+            const tx = balls[i].x + Math.cos(angle) * minDist;
+            const ty = balls[i].y + Math.sin(angle) * minDist;
+            const ax = (tx - balls[j].x) * 0.5;
+            const ay = (ty - balls[j].y) * 0.5;
+
+            balls[i].vx -= ax;
+            balls[i].vy -= ay;
+            balls[j].vx += ax;
+            balls[j].vy += ay;
+          }
+        }
+      }
+    }
+
+    let draggedBall = null;
+    let lastMouseX = 0, lastMouseY = 0;
+
+    canvas.addEventListener('mousedown', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+
+      balls.forEach(b => {
+        if (Math.hypot(b.x - mx, b.y - my) < b.radius) {
+          draggedBall = b;
+          lastMouseX = mx;
+          lastMouseY = my;
+        }
+      });
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (draggedBall) {
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        draggedBall.vx = (mx - lastMouseX) * 0.8;
+        draggedBall.vy = (my - lastMouseY) * 0.8;
+        draggedBall.x = mx;
+        draggedBall.y = my;
+        lastMouseX = mx;
+        lastMouseY = my;
+      }
+    });
+
+    window.addEventListener('mouseup', () => { draggedBall = null; });
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      handleCollisions();
+      balls.forEach(b => {
+        b.update();
+        b.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // 3. Experience Navigation
+    const experiences = [
+      {
+        role: "Customer Care Analyst",
+        company: "Sana Labs / Workday — Present",
+        points: [
+          "Leading tier-2/tier-3 escalation response across AI learning ecosystems and Workday integration endpoints.",
+          "Collaborating with core engineering pods to triage API payloads and deliver telemetry logs for rapid resolution.",
+          "Authoring detailed runbooks and standard operating procedures for distributed support reps."
+        ]
+      },
+      {
+        role: "Product Support Engineer",
+        company: "BetterPlace — Aug 2024 to Present",
+        points: [
+          "Supported enterprise HR tech platform covering Attendance, Payroll, and Upskilling modules[cite: 1].",
+          "Triaged 200+ support requests daily across Jira & Zendesk while maintaining clean ticket hygiene[cite: 1].",
+          "Analyzed recurring patterns and drove root-cause remediations with development teams[cite: 1]."
+        ]
+      },
+      {
+        role: "Product Support Engineer",
+        company: "Nextuple — Oct 2022 to Jul 2024",
+        points: [
+          "Led 10+ monthly production release calls end-to-end with full playbook and rollback accountability[cite: 1].",
+          "Built and maintained SLI/SLO dashboards in Grafana for stakeholder visibility into platform availability[cite: 1].",
+          "Managed P1/P2 incidents from initial triage to cross-team post-mortems[cite: 1]."
+        ]
+      },
+      {
+        role: "Customer Support Engineer",
+        company: "TechGyan — Jan 2022 to Sep 2022",
+        points: [
+          "Provided empathetic, high-velocity technical support for enterprise Microsoft 365 tenants[cite: 2].",
+          "Recorded detailed case logs in Microsoft Dynamics 365 CRM, expanding reusable knowledge assets[cite: 2].",
+          "Conducted internal knowledge transfers to accelerate average resolution time[cite: 2]."
+        ]
+      }
+    ];
+
+    function switchExp(idx) {
+      const tabs = document.querySelectorAll('.exp-tab');
+      tabs.forEach((tab, i) => tab.classList.toggle('active', i === idx));
+
+      const exp = experiences[idx];
+      const panel = document.getElementById('expPanel');
+      panel.style.opacity = 0;
+      setTimeout(() => {
+        panel.innerHTML = `
+          <h3 class="exp-role-title">${exp.role}</h3>
+          <span class="exp-company-sub">${exp.company}</span>
+          <ul class="exp-points-list">
+            ${exp.points.map(p => `<li>${p}</li>`).join('')}
+          </ul>
+        `;
+        panel.style.opacity = 1;
+      }, 150);
+    }
+  </script>
+</body>
+</html>
+     
